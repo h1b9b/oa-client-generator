@@ -1,6 +1,6 @@
 {
   "name": "oa-client-generator",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Generate TypeScript clients from a given OpenAPI description document.",
   "main": "lib/codegen/index.js",
   "bin": {
