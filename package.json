@@ -1,0 +1,56 @@
+{
+  "name": "oa-client-generator",
+  "version": "0.0.1",
+  "description": "Generate TypeScript clients from a given OpenAPI description document.",
+  "main": "lib/codegen/index.js",
+  "bin": {
+    "oa-client-generator": "./lib/codegen/cli.js"
+  },
+  "repository": "https://github.com/h1b9b/oa-client-generator",
+  "author": "h1b9b",
+  "license": "ISC",
+  "keywords": [
+    "openapi",
+    "typescript"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "jest test/",
+    "test:e2e": "npm run generate:demo && with-server --grep 'Mocking API at \\d+' 'cd demo && jest'",
+    "prepare": "npm run build && chmod +x ./lib/codegen/cli.js",
+    "start": "open-api-mocker -p $PORT -s demo/book-store.json",
+    "generate:demo": "npm run prepare && npm run generate:demo:api && npm run  generate:demo:optimistic",
+    "generate:demo:api": "./lib/codegen/cli.js ./demo/book-store.json ./demo/api.ts",
+    "generate:demo:optimistic": "./lib/codegen/cli.js --optimistic ./demo/book-store.json ./demo/optimisticApi.ts"
+  },
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^10.0.2",
+    "lodash": "^4.17.20",
+    "minimist": "^1.2.5",
+    "swagger2openapi": "^7.0.4",
+    "typescript": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/lodash": "^4.14.165",
+    "@types/minimist": "^1.2.1",
+    "husky": "^4.3.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.2",
+    "open-api-mocker": "^1.4.1",
+    "openapi-types": "^7.0.1",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.0.0",
+    "with-server": "^1.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
+}

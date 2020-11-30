@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateServer creates an object with servers 1`] = `
+"{
+    server1: \\"http://example.org\\"
+}"
+`;
+
+exports[`generateServer supports variables 1`] = `
+"{
+    server1: ({ tld = \\"org\\", path = \\"\\" }: {
+        tld: \\"org\\" | \\"com\\";
+        path: string | number | boolean;
+    }) => \`http://example.\${tld}/\${path}\`
+}"
+`;
+
+exports[`generateServer uses the description as name 1`] = `
+"{
+    superApi: \\"http://example.org\\",
+    server2: \\"http://example.org/2\\"
+}"
+`;
